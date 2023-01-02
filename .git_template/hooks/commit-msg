@@ -3,9 +3,10 @@
 MESSAGE_REGEX="(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert)(\([\w\-]+\))?:\s.*"
 MATCHES=$(echo $(cat "$1") | grep -o -E "$MESSAGE_REGEX")
 
-if [[ -z "$MATCHES" ]]; then
+if [ -z "$MATCHES" ] && [ -z "$IGNORE_COMMIT_MSG" ]; then
 	echo "[commit-msg-hook] Please name your commit to match the commit message conventions."
 	echo "[commit-msg-hook] Example:"
 	echo "[commit-msg-hook] feat(config): save user configuration to file"
+	echo "[commit-msg-hook] Use IGNORE_COMMIT_MSG to ignore this"
 	exit 1
 fi

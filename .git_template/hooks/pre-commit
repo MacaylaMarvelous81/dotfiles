@@ -5,7 +5,8 @@
 BRANCH_REGEX="^(ISSUE-[0-9]+\/([a-zA-Z0-9]|-))+|master"
 MATCHES=$(echo "$(git rev-parse --abbrev-ref HEAD)" | grep -o -E "$BRANCH_REGEX")
 
-if [[ -z "$MATCHES" ]]; then
+if [ -z "$MATCHES" ] && [ -z "$IGNORE_BRANCH_NAME" ]; then
 	echo "[pre-commit-hook] Please match your branch name to: 'ISSUE-0000/feature-name' or 'master'."
+	echo "[pre-commit-hook] Use IGNORE_BRANCH_NAME to ignore this"
 	exit 1
 fi
