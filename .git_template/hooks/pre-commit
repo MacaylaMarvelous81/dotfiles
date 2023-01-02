@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# To add more excluded names, add |branchname
+# eg. +|master|develop|rc
+BRANCH_REGEX="^(ISSUE-[0-9]+\/([a-zA-Z0-9]|-))+|master"
+MATCHES=$(echo "$(git rev-parse --abbrev-ref HEAD)" | grep -o -E "$BRANCH_REGEX")
+
+if [[ -z "$MATCHES" ]]; then
+	echo "[pre-commit-hook] Please match your branch name to: 'ISSUE-0000/feature-name' or 'master'."
+	exit 1
+fi
