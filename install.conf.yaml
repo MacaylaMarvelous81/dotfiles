@@ -11,7 +11,7 @@
       mode: 0700
 
 - shell:
-  - command: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+  - command: install -m 400 /dev/null ~/.ssh/id_ed25519 && echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
     description: Install SSH private key from secrets
 
 - clean: [ "~" ]
